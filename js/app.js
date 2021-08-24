@@ -1,9 +1,9 @@
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
-const missed = 0;
+let missed = 0;
 
 const btnReset = document.querySelector('.btn__reset');
-const phrases = ['Passion', 'Love', 'Programming', 'Greatness', 'Success'];
+const phrases = ['hard work pays', 'javascript is fun', 'programming', 'greatness', 'success'];
 
 btnReset.addEventListener('click', () => {
     const startOverlay = document.getElementById('overlay');
@@ -18,6 +18,7 @@ function getRandomPhraseAsArray(arr) {
     // return the newly created array
     return newArr;
 }
+
 const phraseArray = getRandomPhraseAsArray(phrases);
 
 function addPhraseToDisplay(arr) {
@@ -44,13 +45,29 @@ addPhraseToDisplay(phraseArray);
 
 function checkLetter(button) {
     const letters = document.querySelectorAll('.letter');
-    const matchingLetter = null;
+    let matchingLetter;
 
     for (let i = 0; i < letters.length; i++) {
         if (letters[i].textContent === button.textContent) {
             letters[i].classList.add('show');
             matchingLetter = button.textContent;
         }
-        return matchingLetter;
     }
+    return matchingLetter;
 }
+
+qwerty.addEventListener('click', (e) => {
+    const button = e.target;
+    if (button.tagName === 'BUTTON') {
+        button.classList.add('chosen');
+        button.disabled = true;
+
+        const letterFound = checkLetter(button);
+        let heart = document.querySelector('ol li:last-child');
+
+        if (!letterFound) {
+            heart.remove();
+            missed++;
+        }
+    }
+});
