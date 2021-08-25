@@ -80,13 +80,9 @@ function checkWin() {
     const buttons = document.querySelectorAll('.keyrow button');
 
     if (letterClass.length === showClass.length) {
-        startOverlay.className = 'win';
-        headline.textContent = 'YOU WON!!!!';
-        startOverlay.style.display = 'flex';
+        overlayDisplay('win', 'YOU WON!!!!');
     } else if (missed > 4) {
-        startOverlay.className = 'lose';
-        headline.textContent = 'YOU LOST :('
-        startOverlay.style.display = 'flex';
+        overlayDisplay('lose', 'YOU LOST :(');
     }
 
     btnReset.textContent = 'Start Over';
@@ -104,4 +100,10 @@ function checkWin() {
             heartImages[i].src = 'images/liveHeart.png';
         }
     });
+}
+
+function overlayDisplay(results, text) {
+    startOverlay.className = results;
+    headline.textContent = text;
+    startOverlay.style.display = 'flex';
 }
